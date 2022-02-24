@@ -1,5 +1,10 @@
 package tools;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 public class MathAndPrintTools {
     public static double solvePointSinus(double[] expression, double point) {
         double solve = 0;
@@ -35,7 +40,26 @@ public class MathAndPrintTools {
         for (int i = 0; i < a.length; i++) {
             s.append(String.format("%1$8.3f | ", a[i]));
         }
-        System.out.println(s);
+        s.append("\n");
+        System.out.print(s);
+        toFileResult.append(s );
     }
 
+    public static StringBuilder toFileResult = new StringBuilder();
+    public static void printToFile(String filename) {
+        try(FileWriter writer = new FileWriter("src/main/java/output-files/" + filename + ".txt", false))
+        {
+            // запись всей строки
+            writer.write(toFileResult.toString());
+
+            writer.flush();
+        }
+        catch(IOException ex){
+
+            System.out.println(ex.getMessage());
+        }
+    }
+
+
+    public static Map<Double, Double> points = new HashMap<>();
 }

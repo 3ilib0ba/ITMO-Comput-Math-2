@@ -13,8 +13,10 @@ public class MethodSecant {
     public static boolean transcendentLocal = false;
 
     public static void solveAll() {
-        System.out.println("   №|\t   X_0| \t  X_1|       X_2|    f(X_2)| |X_2-X_1||");
-        System.out.println("+---+---------+----------+----------+----------+----------+");
+        String header = "   №|\t   X_0| \t  X_1|       X_2|    f(X_2)| |X_2-X_1||\n" +
+                "+---+---------+----------+----------+----------+----------+\n";
+        System.out.println(header);
+        toFileResult.append(header);
 
         int counter = 1;
         double[] tmp = new double[5];
@@ -65,6 +67,10 @@ public class MethodSecant {
         epsilonLocal = eps;
         transcendentLocal = transcendent;
 
+        for (double temp = a - 2.0; temp < b + 2.0; temp += 0.1) {
+            points.put(temp, transcendent ? solvePointSinus(exprLocal, temp) : solvePoint(exprLocal, temp));
+        }
+
         if (!checkStartInterval()) {
             System.out.println("Incorrect input");
             System.exit(10);
@@ -74,7 +80,9 @@ public class MethodSecant {
         X_i1 = intervalB;
 
         solveAll();
-        System.out.println("Point = " + X_i2 + "\nValue = " + (transcendentLocal ? solvePointSinus(exprLocal, X_i2) : solvePoint(exprLocal, X_i2)));
+        String result = "Point = " + X_i2 + "\nValue = " + (transcendentLocal ? solvePointSinus(exprLocal, X_i2) : solvePoint(exprLocal, X_i2));
+        System.out.println(result);
+        toFileResult.append(result);
     }
 
 }

@@ -1,3 +1,6 @@
+import graphs.Picture;
+import tools.MathAndPrintTools;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -32,6 +35,24 @@ public class Main {
             System.out.println("Enter an accuracy, A and B");
         }
         return scanner;
+    }
+
+    public static void printResultToFile() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Вывести результат в отдельный файл?(YES/NO)");
+        String answer = scanner.nextLine();
+        boolean toFile = false;
+        if (answer.equalsIgnoreCase("yes")) {
+            toFile = true;
+        } else {
+            System.out.println("Exiting...");
+        }
+
+        if (toFile) {
+            System.out.println("Введите имя файла:");
+            String filename = scanner.nextLine();
+            MathAndPrintTools.printToFile(filename);
+        }
     }
 
     public static void main(String[] args) {
@@ -84,7 +105,8 @@ public class Main {
                     double aLocal = scanner.nextDouble();
                     double bLocal = scanner.nextDouble();
                     MethodNewTon.initSolve(epsLocal, aLocal, bLocal);
-                    System.exit(15);
+                    printResultToFile();
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("incorrect input");
@@ -140,5 +162,12 @@ public class Main {
                 MethodSecant.initSolve(eq, a, b, eps, transcendent);
                 break;
         }
+
+        Picture picture = new Picture("graph");
+        picture.graph(MathAndPrintTools.points);
+
+        printResultToFile();
+
+
     }
 }

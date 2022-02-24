@@ -1,3 +1,5 @@
+import tools.MathAndPrintTools;
+
 import static tools.MathAndPrintTools.*;
 
 public class MethodOfPartDiv {
@@ -24,9 +26,15 @@ public class MethodOfPartDiv {
     }
 
     public void findRightSolution(double a, double b) {
+        for (double temp = a - 2.0; temp < b + 2.0; temp += 0.1) {
+            points.put(temp, transcendent ? solvePointSinus(equation, temp) : solvePoint(equation, temp));
+        }
+
         // print header of table
-        System.out.println("   №|\t\t a| \t    b|\t\t   x| \t   f(a)| \t  f(b)|\t\t f(x)| \t   |a-b||");
-        System.out.println("+---+---------+----------+----------+----------+----------+----------+----------+");
+        String header = "   №|\t\t a| \t    b|\t\t   x| \t   f(a)| \t  f(b)|\t\t f(x)| \t   |a-b||\n" +
+                "+---+---------+----------+----------+----------+----------+----------+----------+\n";
+        System.out.println(header);
+        toFileResult.append(header);
 
         double[] tmp = new double[7];
         tmp[0] = a;
@@ -46,8 +54,10 @@ public class MethodOfPartDiv {
         print(tmp, cnt);
 
         // print results
-        System.out.println("Count iterations: " + cnt);
-        System.out.println("Final x = " + tmp[2]);
+        String results = "Count iterations: " + cnt + "\n" +
+                "Final x = " + tmp[2];
+        System.out.println(results);
+        toFileResult.append(results);
     }
 
     private void calc(double[] tmp) {

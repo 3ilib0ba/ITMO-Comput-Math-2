@@ -1,3 +1,5 @@
+import tools.MathAndPrintTools;
+
 public class MethodNewTon {
     // x^2-2y=0
     // 3x-y^2+3=0
@@ -45,7 +47,9 @@ public class MethodNewTon {
         Y_0 = b;
         MethodNewTon.precision = precision;
 
-        System.out.println("Начальные данные:\nX_0 = " + X_0 + "\nY_0 = " + Y_0);
+        String header = "Начальные данные:\nX_0 = " + X_0 + "\nY_0 = " + Y_0;
+        System.out.println(header);
+        MathAndPrintTools.toFileResult.append(header);
 
         MatrixActionsFromLab1.SIZE = 2;
         int counter = 0;
@@ -71,11 +75,14 @@ public class MethodNewTon {
             Y_0 = Y_1;
         }
 
-        System.out.println("\n\nПрошло итераций = " + counter);
-        System.out.println("X = " + String.format("%1$8.3f", X_1) + "; \nY = " + String.format("%1$8.3f;", Y_1));
-        System.out.println("Вектор погрешностей:");
-        System.out.println("for X: " + String.format("%1$8.3f", (X_1 - X_0)));
-        System.out.println("for Y: " + String.format("%1$8.3f", (Y_1 - Y_0)));
+        String finalResult = "\n\nПрошло итераций = " + counter + "\n" +
+                "X = " + String.format("%1$8.3f", X_1) + "; \nY = " + String.format("%1$8.3f;", Y_1) + "\n" +
+                "Вектор погрешностей:" + "\n" +
+                "for X: " + String.format("%1$8.3f", (X_1 - X_0)) + "\n" +
+                "for Y: " + String.format("%1$8.3f", (Y_1 - Y_0));
+
+        System.out.println(finalResult);
+        MathAndPrintTools.toFileResult.append(finalResult);
     }
 
     public static boolean check() {

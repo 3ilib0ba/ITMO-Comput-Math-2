@@ -48,8 +48,9 @@ public class MethodSimpleIterations {
 
     public static void solveExpression() {
         // print header of table
-        System.out.println("   №|\t   X_0| \t  X_1|  phi(X_1)|    f(X_1)| |X_1-X_0||");
-        System.out.println("+---+---------+----------+----------+----------+----------+");
+        String header = "   №|\t   X_0| \t  X_1|  phi(X_1)|    f(X_1)| |X_1-X_0||\n" + "+---+---------+----------+----------+----------+----------+\n";
+        System.out.println(header);
+        toFileResult.append(header);
 
         Xi_1 = solvePoint(expressionPhiFromX, Xi_0);
         int counter = 0;
@@ -75,7 +76,9 @@ public class MethodSimpleIterations {
         tmp[4] = Math.abs(Xi_1 - Xi_0);
         print(tmp, counter);
 
-        System.out.println("\nFinish X = " + String.format("%1$8.6f", Xi_1));
+        String result = "\nFinish X = " + String.format("%1$8.6f", Xi_1);
+        System.out.println(result);
+        toFileResult.append(result);
     }
 
     public static void initSolve(
@@ -93,6 +96,10 @@ public class MethodSimpleIterations {
         derivativeOfExpression = MathAndPrintTools.solveDerivativePolinom(expressionLocal);
         initLambda();
         initExpressionPhi();
+
+        for (double temp = a - 2.0; temp < b + 2.0; temp += 0.1) {
+            points.put(temp, transcendent ? solvePointSinus(expressionLocal, temp) : solvePoint(expressionLocal, temp));
+        }
 
         solveExpression();
         if (Xi_1 > intervalB || Xi_1 < intervalA) {
