@@ -62,4 +62,10 @@ public class MathAndPrintTools {
 
 
     public static Map<Double, Double> points = new HashMap<>();
+    public static Map<Double, Double> pointsFirst = new HashMap<>();
+    public static void fillMap(double a, double b, double[] eq, boolean trenc) {
+        for (double temp = a - 2.0; temp < b + 2.0; temp += 0.1) {
+            pointsFirst.put(temp, trenc ? solvePointSinus(eq, temp) : solvePoint(eq, temp));
+        }
+    }
 }

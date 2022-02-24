@@ -116,6 +116,14 @@ public class Main {
         } catch (Exception e) {
             System.out.println("Error with inputting. Exiting...");
             System.exit(13);
+        } finally {
+            Scanner sc2 = new Scanner(System.in);
+            System.out.println("Введите предварительные интервалы для изоляции корнец :");
+            double a1 = sc2.nextDouble();
+            double b1 = sc2.nextDouble();
+            MathAndPrintTools.fillMap(a1, b1, eq, transcendent);
+            Picture picture2 = new Picture("graph");
+            picture2.graph(MathAndPrintTools.pointsFirst);
         }
 
         try {
